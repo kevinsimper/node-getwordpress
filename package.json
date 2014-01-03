@@ -1,0 +1,28 @@
+{
+  "name": "getwordpress",
+  "version": "0.0.1",
+  "description": "Get Wordpress in your current directory.",
+  "main": "index.js",
+  "dependencies": {
+    "hyperquest": "~0.2.0",
+    "adm-zip": "~0.4.3",
+    "fs.extra": "~1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kevinsimper/node-getwordpress.git"
+  },
+  "keywords": [
+    "wordpress"
+  ],
+  "author": "Kevin Simper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevinsimper/node-getwordpress/issues"
+  },
+  "bin": "index.js"
+}
