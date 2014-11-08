@@ -1,35 +1,32 @@
 #!/usr/bin/env node
 
-var unzip = require('adm-zip')
-,   hyperquest = require('hyperquest')
-,   fs = require('fs.extra')
-
+var fs = require('fs.extra')
+,   Download = require('download')
+,   progress = require('download-status');
 
 var latestWordpress = 'http://wordpress.org/latest.zip';
-
 var subfolder = '';
 if(process.argv[2]){
   subfolder = '/' + process.argv[2];
   console.log('Installing Wordpress in a subfolder: .' + subfolder);
+} else {
+  console.log('Installing Wordpress in current directory.')
 }
 var finalFolder = process.cwd() + subfolder;
-var wordpressZip = process.cwd() + subfolder + '/latest.zip';
 fs.mkdirpSync(finalFolder);
 
-var r = hyperquest(latestWordpress)
-var zipWriteStream = fs.createWriteStream(wordpressZip);
-r.pipe(zipWriteStream);
+var download = new Download({
+    extract: true,
+    strip  : 1
+})
+    .get(latestWordpress)
+    .dest(finalFolder)
+    .use(progress());
 
-zipWriteStream.on('finish', function(){
-  console.log('Finish downloading latest Wordpress');
-  var files = unzip(wordpressZip);
-  files.extractAllTo(finalFolder, true);
-  fs.copyRecursive(finalFolder + '/wordpress/', finalFolder, function(err){
-    if(err) console.log('fejl', err);
-    console.log('Finish Unzipping');
-
-    fs.rmrf(finalFolder + '/wordpress');
-    fs.unlink(wordpressZip);
-    console.log('Wordpress downloaded and ready!');
-  });
+download.run(function (err, files, stream) {
+    if (err) {
+        console.log('fejl', err);
+    } else {
+        console.log('Wordpress downloaded and ready!');
+    }
 });
