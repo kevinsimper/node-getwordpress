@@ -4,8 +4,8 @@
   "description": "Get Wordpress in your current directory.",
   "main": "index.js",
   "dependencies": {
-    "hyperquest": "~0.2.0",
-    "adm-zip": "~0.4.3",
+    "download": "^3.1.2",
+    "download-status": "^2.1.0",
     "fs.extra": "~1.2.1"
   },
   "devDependencies": {},
